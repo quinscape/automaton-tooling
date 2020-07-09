@@ -1,2 +1,7 @@
-target
+target/classes/
+target/maven-archiver/
+target/maven-status/
+target/original-*.jar
+target/test-classes/
+
 dependency-reduced-pom.xml
