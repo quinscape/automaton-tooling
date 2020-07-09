@@ -20,3 +20,8 @@ It is assumed that the `domain` package contains the generared JOOQ sources.
 
 The output is supposed to be written to `runtime.config.GraphQLConfiguration` and the output file should match that.
  
+
+## Download
+
+[Current "uber-jar" download](./target/automaton-tooling-1.0-SNAPSHOT.jar)
+
