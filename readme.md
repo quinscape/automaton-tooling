@@ -23,5 +23,5 @@ The output is supposed to be written to `runtime.config.GraphQLConfiguration` an
 
 ## Download
 
-[Current "uber-jar" download](./target/automaton-tooling-1.0-SNAPSHOT.jar)
+[Current "uber-jar" download](./target/automaton-tooling-1.0-SNAPSHOT-uber.jar)
 

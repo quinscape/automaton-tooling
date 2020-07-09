@@ -86,6 +86,8 @@
                                     <mainClass>de.quinscape.automaton.tooling.AutomatonTooling</mainClass>
                                 </transformer>
                             </transformers>
+                            <shadedArtifactAttached>true</shadedArtifactAttached>
+                            <shadedClassifierName>uber</shadedClassifierName> <!-- Any name that makes sense -->
                         </configuration>
                     </execution>
                 </executions>
