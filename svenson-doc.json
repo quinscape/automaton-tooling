@@ -1,0 +1,26 @@
+{
+    "documents": [
+        {
+            "name": "readme.md",
+            "content" : [
+                "introduction.md",
+                "de.quinscape.automaton.tooling.model.graphql.GraphQLConfig",
+                "gql-example.md",
+                "links.md"
+            ]
+        },
+        {
+            "name": "docs/reference.md",
+            "content" : [
+                "*"
+            ]
+        }
+    ],
+
+    "packages": [
+        "de.quinscape.automaton.tooling.model.graphql"
+    ],
+
+    "shortenTitle": true,
+    "shortenTypes": true
+}
