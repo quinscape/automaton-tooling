@@ -46,11 +46,11 @@ Configuration for a relation based on a view / without formal database foreign k
 name | type | description 
 -----|------|-------------
 sourceField | [SourceField](#sourcefield) | Source field configuration. (NONE, SCALAR, OBJECT, OBJECT_AND_SCALAR )
-sourcePojo | String | Name of the POJO on the left side of the relation.
 sourceFields | List of String | Fields within the source table pointing to the target.
+sourcePojo | String | Name of the POJO on the left side of the relation.
 targetField | [TargetField](#targetfield) | Target field configuration. (NONE, ONE, MANY )
 targetPojo | String | Name of the POJO on the right side of the relation
 rightSideObjectName | String | Name of the object field representing the relation on the right side of the relation.
 id | String | Optional explicit relation id (must be unique). If not defined, a unique id is generated.
-leftSideObjectName | String | Name of the object field representing the relation on the left side of the relation.
 targetFields | List of String | Fields the relation is pointing to within the target type.
+leftSideObjectName | String | Name of the object field representing the relation on the left side of the relation.
