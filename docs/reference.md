@@ -1,4 +1,4 @@
-# Class ForeignKeyRelation
+# Class de.quinscape.automaton.tooling.model.graphql.ForeignKeyRelation
 
 name | type | description 
 -----|------|-------------
