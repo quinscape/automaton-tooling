@@ -30,15 +30,17 @@ configuration.
 
 The classes in de.quinscape.automaton.tooling.model.graphql act as a schema for our JSON configuration.
 
-### Class GraphQLConfig
+### GraphQLConfig
+
+Root node for our JSON data
 
 name | type | description 
 -----|------|-------------
 nameFieldsByType | Map of List&lt;String&gt; | Type specific name field configuration. Maps the name of a POJO type to a list of name fields for that type. The given type will use the given name fields as representative values/name field.
 nameFields | List of String | Default name fields. The first name in the list contained in a type is used as name field for that type.
-foreignKeyRelations | List of ForeignKeyRelation | List of foreign key based relation configurations.
+foreignKeyRelations | List of [ForeignKeyRelation](docs/reference.md#foreignkeyrelation) | List of foreign key based relation configurations.
 additionalInputTypes | List of String | List of additional POJO names to use as input types.
-viewRelations | List of ViewRelation | List of view / POJO based relation configurations.
+viewRelations | List of [ViewRelation](docs/reference.md#viewrelation) | List of view / POJO based relation configurations.
 ## Graphql Config Example
 
 ```json

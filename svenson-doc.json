@@ -22,5 +22,6 @@
     ],
 
     "shortenTitle": true,
-    "shortenTypes": true
+    "shortenTypes": true,
+    "linkReference" : true
 }
