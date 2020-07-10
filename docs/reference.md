@@ -52,5 +52,5 @@ targetField | [TargetField](#targetfield) | Target field configuration. (NONE, O
 targetPojo | String | Name of the POJO on the right side of the relation
 rightSideObjectName | String | Name of the object field representing the relation on the right side of the relation.
 id | String | Optional explicit relation id (must be unique). If not defined, a unique id is generated.
-targetFields | List of String | Fields the relation is pointing to within the target type.
 leftSideObjectName | String | Name of the object field representing the relation on the left side of the relation.
+targetFields | List of String | Fields the relation is pointing to within the target type.
