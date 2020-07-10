@@ -35,8 +35,8 @@ The root of the file corresponds to the de.quinscape.automaton.tooling.model.gra
 
 Root node for our JSON data
 
-name | type | description 
------|------|-------------
+property | type | description 
+---------|------|-------------
 nameFieldsByType | Map of List&lt;String&gt; | Type specific name field configuration. Maps the name of a POJO type to a list of name fields for that type. The given type will use the given name fields as representative values/name field.
 nameFields | List of String | Default name fields. The first name in the list contained in a type is used as name field for that type.
 foreignKeyRelations | List of [ForeignKeyRelation](docs/reference.md#foreignkeyrelation) | List of foreign key based relation configurations.
