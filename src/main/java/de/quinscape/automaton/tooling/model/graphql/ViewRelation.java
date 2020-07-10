@@ -1,4 +1,4 @@
-package de.quinscape.automaton.tooling.model;
+package de.quinscape.automaton.tooling.model.graphql;
 
 import java.util.List;
 
@@ -28,7 +28,6 @@ public class ViewRelation
 
     /**
      * Optional explicit relation id (must be unique). If not defined, a unique id is generated.
-     * @return
      */
     public String getId()
     {
@@ -103,10 +102,7 @@ public class ViewRelation
 
 
     /**
-     * Source field configuration. (NONE | SCALAR | OBJECT | OBJECT_AND_SCALAR )
-     *
-     * (See de.quinscape.domainql.config.SourceField in automaton)
-     * @return
+     * Source field configuration. (NONE, SCALAR, OBJECT, OBJECT_AND_SCALAR )
      */
     public SourceField getSourceField()
     {
@@ -127,10 +123,7 @@ public class ViewRelation
 
 
     /**
-     * Target field configuration. (NONE | ONE | MANY )
-     *
-     * (See de.quinscape.domainql.config.TargetField in automaton)
-     * @return
+     * Target field configuration. (NONE, ONE, MANY )
      */
     public TargetField getTargetField()
     {

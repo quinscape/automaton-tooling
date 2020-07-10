@@ -1,4 +1,4 @@
-package de.quinscape.automaton.tooling.model;
+package de.quinscape.automaton.tooling.model.graphql;
 
 /**
  * DomainQL behaviour for the source / left-hand side of a foreign Key. (Copy from domainql)

@@ -1,10 +1,10 @@
 package de.quinscape.automaton.tooling;
 
-import de.quinscape.automaton.tooling.model.ForeignKeyRelation;
-import de.quinscape.automaton.tooling.model.GraphQLConfig;
-import de.quinscape.automaton.tooling.model.SourceField;
-import de.quinscape.automaton.tooling.model.TargetField;
-import de.quinscape.automaton.tooling.model.ViewRelation;
+import de.quinscape.automaton.tooling.model.graphql.ForeignKeyRelation;
+import de.quinscape.automaton.tooling.model.graphql.GraphQLConfig;
+import de.quinscape.automaton.tooling.model.graphql.SourceField;
+import de.quinscape.automaton.tooling.model.graphql.TargetField;
+import de.quinscape.automaton.tooling.model.graphql.ViewRelation;
 import de.quinscape.automaton.tooling.template.BaseTemplate;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;

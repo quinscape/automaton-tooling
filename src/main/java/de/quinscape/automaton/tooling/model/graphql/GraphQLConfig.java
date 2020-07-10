@@ -1,4 +1,4 @@
-package de.quinscape.automaton.tooling.model;
+package de.quinscape.automaton.tooling.model.graphql;
 
 import org.svenson.JSONTypeHint;
 
@@ -99,7 +99,7 @@ public class GraphQLConfig
 
     /**
      * Type specific name field configuration. Maps the name of a POJO type to a list of name fields for that type.
-     * The given type will use the given name fields as representative values / name field.
+     * The given type will use the given name fields as representative values/name field.
      */
     public Map<String, List<String>> getNameFieldsByType()
     {

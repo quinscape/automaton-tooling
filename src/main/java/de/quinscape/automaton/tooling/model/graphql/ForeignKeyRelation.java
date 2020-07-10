@@ -1,5 +1,8 @@
-package de.quinscape.automaton.tooling.model;
+package de.quinscape.automaton.tooling.model.graphql;
 
+/**
+ * Relation based on a formal database foreign key definition.
+ */
 public class ForeignKeyRelation
 {
     private String fkField;
