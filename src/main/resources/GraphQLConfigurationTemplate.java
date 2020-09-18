@@ -18,6 +18,7 @@ import de.quinscape.domainql.generic.GenericScalar;
 import de.quinscape.domainql.generic.GenericScalarType;
 import de.quinscape.domainql.jsonb.JSONB;
 import de.quinscape.domainql.jsonb.JSONBScalar;
+import de.quinscape.domainql.scalar.BigDecimalScalar;
 import graphql.GraphQL;
 import org.jooq.DSLContext;
 import org.slf4j.Logger;
@@ -29,6 +30,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.ClassPathResource;
 
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.util.Collection;
 import java.util.Arrays;
 import java.util.Collections;
@@ -76,6 +78,7 @@ public class GraphQLConfiguration
             .withAdditionalScalar(ConditionScalar.class, ConditionType.newConditionType())
             .withAdditionalScalar(FieldExpressionScalar.class, FieldExpressionType.newFieldExpressionType())
             .withAdditionalScalar(GenericScalar.class, GenericScalarType.newGenericScalar())
+            .withAdditionalScalar(BigDecimal.class, new BigDecimalScalar())
 
             .withAdditionalInputTypes(
                 $INPUT_TYPES
