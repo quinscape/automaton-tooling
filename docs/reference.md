@@ -6,6 +6,7 @@ property | type | description
 ---------|------|-------------
 sourceField | [SourceField](#sourcefield) | Source field configuration
 fkField | String | Java literal of the foreign key field (e.g. "Foo.OWNER_ID")
+metaTags | List of String | 
 targetField | [TargetField](#targetfield) | Target field configuration
 rightSideObjectName | String | Object name on the right side of the relation.
 leftSideObjectName | String | Object name on the left side of the relation.
@@ -55,6 +56,7 @@ sourceField | [SourceField](#sourcefield) | Source field configuration. (NONE, S
 sourcePojo | String | Name of the POJO on the left side of the relation.
 sourceFields | List of String | Fields within the source table pointing to the target.
 targetField | [TargetField](#targetfield) | Target field configuration. (NONE, ONE, MANY )
+metaTags | List of String | 
 targetPojo | String | Name of the POJO on the right side of the relation
 rightSideObjectName | String | Name of the object field representing the relation on the right side of the relation.
 id | String | Optional explicit relation id (must be unique). If not defined, a unique id is generated.
