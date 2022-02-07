@@ -13,8 +13,27 @@
             "fkField" : "QUX_MAIN.QUX_B_NAME",
             "sourceField" : "OBJECT_AND_SCALAR",
             "leftSideObjectName": "quxB"
+        },
+        {
+            "fkField": "A_44_VO_ANLAGE_BETRIEBSEINHEIT.VO_44_ID",
+            "sourceField": "OBJECT_AND_SCALAR",
+            "targetField": "MANY",
+            "leftSideObjectName": null,
+            "rightSideObjectName": "a_44VoAnlageBetriebseinheit",
+            "metaTags": [
+                "ManyToMany"
+            ]
+        },
+        {
+            "fkField": "A_44_VO_ANLAGE_BETRIEBSEINHEIT.ANLAGE_ID",
+            "sourceField": "OBJECT_AND_SCALAR",
+            "targetField": "MANY",
+            "leftSideObjectName": null,
+            "rightSideObjectName": "a_44VoAnlageBetriebseinheit",
+            "metaTags": [
+                "ManyToMany"
+            ]
         }
-
     ],
     "viewRelations": [
         {
@@ -34,8 +53,33 @@
             "leftSideObjectName" :  "aAnlage",
             "targetField" :  "MANY",
             "rightSideObjectName" :  "anlagen"
+        },
+        {
+            "sourcePojo" :  "IBeispielLink",
+            "sourceFields" : ["beispielAId"],
+            "targetPojo" :  "BeispielA",
+            "targetFields" : ["id"],
+            "sourceField" :  "OBJECT_AND_SCALAR",
+            "leftSideObjectName" :  "beispielA",
+            "targetField" :  "MANY",
+            "rightSideObjectName" :  "beispielBs",
+            "metaTags": [
+                "ManyToMany"
+            ]
+        },
+        {
+            "sourcePojo" :  "IBeispielLink",
+            "sourceFields" : ["beispielBId"],
+            "targetPojo" :  "BeispielB",
+            "targetFields" : ["id"],
+            "sourceField" :  "OBJECT_AND_SCALAR",
+            "leftSideObjectName" :  "beispielB",
+            "targetField" :  "MANY",
+            "rightSideObjectName" :  "beispielAs",
+            "metaTags": [
+                "ManyToMany"
+            ]
         }
-
     ],
     "nameFields": ["name"],
     "nameFieldsByType": {

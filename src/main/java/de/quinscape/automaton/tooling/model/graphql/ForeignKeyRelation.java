@@ -1,5 +1,7 @@
 package de.quinscape.automaton.tooling.model.graphql;
 
+import java.util.List;
+
 /**
  * Relation based on a formal database foreign key definition.
  */
@@ -14,6 +16,8 @@ public class ForeignKeyRelation
     private String leftSideObjectName;
 
     private String rightSideObjectName;
+
+    private List<String> metaTags;
 
 
     /**
@@ -101,15 +105,28 @@ public class ForeignKeyRelation
     }
 
 
+    public List<String> getMetaTags()
+    {
+        return metaTags;
+    }
+
+
+    public void setMetaTags(List<String> metaTags)
+    {
+        this.metaTags = metaTags;
+    }
+
+
     @Override
     public String toString()
     {
         return super.toString() + ": "
             + "fkField = '" + fkField + '\''
-            + ", sourceField = '" + sourceField + '\''
-            + ", targetField = '" + targetField + '\''
+            + ", sourceField = " + sourceField
+            + ", targetField = " + targetField
             + ", leftSideObjectName = '" + leftSideObjectName + '\''
             + ", rightSideObjectName = '" + rightSideObjectName + '\''
+            + ", metaTags = " + metaTags
             ;
     }
 }

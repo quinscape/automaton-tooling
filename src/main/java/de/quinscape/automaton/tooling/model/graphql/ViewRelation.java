@@ -25,6 +25,7 @@ public class ViewRelation
 
     private String rightSideObjectName;
 
+    private List<String> metaTags;
 
     /**
      * Optional explicit relation id (must be unique). If not defined, a unique id is generated.
@@ -169,5 +170,35 @@ public class ViewRelation
     public void setRightSideObjectName(String rightSideObjectName)
     {
         this.rightSideObjectName = rightSideObjectName;
+    }
+
+
+    public List<String> getMetaTags()
+    {
+        return metaTags;
+    }
+
+
+    public void setMetaTags(List<String> metaTags)
+    {
+        this.metaTags = metaTags;
+    }
+
+
+    @Override
+    public String toString()
+    {
+        return super.toString() + ": "
+            + "id = '" + id + '\''
+            + ", sourcePojo = '" + sourcePojo + '\''
+            + ", sourceFields = " + sourceFields
+            + ", targetPojo = '" + targetPojo + '\''
+            + ", targetFields = " + targetFields
+            + ", sourceField = " + sourceField
+            + ", targetField = " + targetField
+            + ", leftSideObjectName = '" + leftSideObjectName + '\''
+            + ", rightSideObjectName = '" + rightSideObjectName + '\''
+            + ", metaTags = " + metaTags
+            ;
     }
 }

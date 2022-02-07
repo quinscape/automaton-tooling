@@ -37,20 +37,23 @@ class GraphQLConfigGeneratorTest
 
         String output = FileUtils.readFileToString(tmpFile, StandardCharsets.UTF_8);
 
+        log.info("TEMP FILE: {}", tmpFile.getAbsolutePath());
+
         assertThat(
             output,
             is("package de.quinscape.testapp.runtime.config;\n" +
                 "\n" +
-                "import de.quinscape.automaton.runtime.scalar.ConditionScalar;\n" +
-                "import de.quinscape.automaton.runtime.scalar.ConditionType;\n" +
-                "import de.quinscape.automaton.runtime.scalar.FieldExpressionScalar;\n" +
-                "import de.quinscape.automaton.runtime.scalar.FieldExpressionType;\n" +
+                "import de.quinscape.automaton.model.domain.AutomatonRelation;\n" +
+                "import de.quinscape.automaton.runtime.domain.builder.AutomatonDomain;\n" +
                 "\n" +
                 "import de.quinscape.testapp.domain.Public;\n" +
                 "import de.quinscape.testapp.domain.tables.pojos.AAnlage;\n" +
                 "import de.quinscape.testapp.domain.tables.pojos.Bar;\n" +
+                "import de.quinscape.testapp.domain.tables.pojos.BeispielA;\n" +
+                "import de.quinscape.testapp.domain.tables.pojos.BeispielB;\n" +
                 "import de.quinscape.testapp.domain.tables.pojos.Foo;\n" +
                 "import de.quinscape.testapp.domain.tables.pojos.IBearbeiteteObjekteAnlagenBetriebsstaetten;\n" +
+                "import de.quinscape.testapp.domain.tables.pojos.IBeispielLink;\n" +
                 "import de.quinscape.testapp.domain.tables.pojos.IFavoritenAnlagenBetriebsstaetten;\n" +
                 "import de.quinscape.testapp.domain.tables.pojos.Qux;\n" +
                 "\n" +
@@ -59,12 +62,7 @@ class GraphQLConfigGeneratorTest
                 "import de.quinscape.domainql.annotation.GraphQLLogic;\n" +
                 "import de.quinscape.domainql.config.SourceField;\n" +
                 "import de.quinscape.domainql.config.TargetField;\n" +
-                "import de.quinscape.domainql.generic.DomainObject;\n" +
-                "import de.quinscape.domainql.generic.DomainObjectScalar;\n" +
-                "import de.quinscape.domainql.generic.GenericScalar;\n" +
-                "import de.quinscape.domainql.generic.GenericScalarType;\n" +
-                "import de.quinscape.domainql.jsonb.JSONB;\n" +
-                "import de.quinscape.domainql.jsonb.JSONBScalar;\n" +
+                "import de.quinscape.domainql.meta.MetadataProvider;\n" +
                 "import graphql.GraphQL;\n" +
                 "import org.jooq.DSLContext;\n" +
                 "import org.slf4j.Logger;\n" +
@@ -76,6 +74,7 @@ class GraphQLConfigGeneratorTest
                 "import org.springframework.core.io.ClassPathResource;\n" +
                 "\n" +
                 "import java.io.IOException;\n" +
+                "import java.math.BigDecimal;\n" +
                 "import java.util.Collection;\n" +
                 "import java.util.Arrays;\n" +
                 "import java.util.Collections;\n" +
@@ -112,19 +111,14 @@ class GraphQLConfigGeneratorTest
                 "    {\n" +
                 "        final Collection<Object> logicBeans = applicationContext.getBeansWithAnnotation(GraphQLLogic" +
                 ".class).values();\n" +
+                "        final Collection<MetadataProvider> metadataProviders = applicationContext.getBeansOfType" +
+                "(MetadataProvider.class).values();\n" +
                 "\n" +
-                "        final DomainQL domainQL = DomainQL.newDomainQL(dslContext)\n" +
+                "        final DomainQL domainQL = AutomatonDomain.newDomain(dslContext, metadataProviders)\n" +
                 "\n" +
                 "            .logicBeans(logicBeans)\n" +
                 "\n" +
                 "            .objectTypes(Public.PUBLIC)\n" +
-                "\n" +
-                "            .withAdditionalScalar(DomainObject.class, DomainObjectScalar.newDomainObjectScalar())\n" +
-                "            .withAdditionalScalar(JSONB.class, new JSONBScalar())\n" +
-                "            .withAdditionalScalar(ConditionScalar.class, ConditionType.newConditionType())\n" +
-                "            .withAdditionalScalar(FieldExpressionScalar.class, FieldExpressionType" +
-                ".newFieldExpressionType())\n" +
-                "            .withAdditionalScalar(GenericScalar.class, GenericScalarType.newGenericScalar())\n" +
                 "\n" +
                 "            .withAdditionalInputTypes(\n" +
                 "                Foo.class,\n" +
@@ -136,6 +130,12 @@ class GraphQLConfigGeneratorTest
                 "            .configureRelation(FOO.OWNER_ID, SourceField.OBJECT_AND_SCALAR, TargetField.MANY)\n" +
                 "            .configureRelation(QUX_MAIN.QUX_B_NAME, SourceField.OBJECT_AND_SCALAR, TargetField.NONE," +
                 " \"quxB\", null)\n" +
+                "            .configureRelation(A_44_VO_ANLAGE_BETRIEBSEINHEIT.VO_44_ID, SourceField" +
+                ".OBJECT_AND_SCALAR, TargetField.MANY, null, \"a_44VoAnlageBetriebseinheit\", AutomatonRelation" +
+                ".MANY_TO_MANY)\n" +
+                "            .configureRelation(A_44_VO_ANLAGE_BETRIEBSEINHEIT.ANLAGE_ID, SourceField" +
+                ".OBJECT_AND_SCALAR, TargetField.MANY, null, \"a_44VoAnlageBetriebseinheit\", AutomatonRelation" +
+                ".MANY_TO_MANY)\n" +
                 "\n" +
                 "            // configure object creation for view / POJO-based relationships\n" +
                 "            .withRelation(\n" +
@@ -153,6 +153,26 @@ class GraphQLConfigGeneratorTest
                 "                    .withLeftSideObjectName(\"aAnlage\")\n" +
                 "                    .withTargetField(TargetField.MANY)\n" +
                 "                    .withRightSideObjectName(\"anlagen\")\n" +
+                "            )\n" +
+                "            .withRelation(\n" +
+                "                new RelationBuilder()\n" +
+                "                    .withPojoFields(IBeispielLink.class, Collections.singletonList(\"beispielAId\")," +
+                " BeispielA.class, Collections.singletonList(\"id\"))\n" +
+                "                    .withSourceField(SourceField.OBJECT_AND_SCALAR)\n" +
+                "                    .withLeftSideObjectName(\"beispielA\")\n" +
+                "                    .withTargetField(TargetField.MANY)\n" +
+                "                    .withRightSideObjectName(\"beispielBs\")\n" +
+                "                    .withMetaTags(AutomatonRelation.MANY_TO_MANY)\n" +
+                "            )\n" +
+                "            .withRelation(\n" +
+                "                new RelationBuilder()\n" +
+                "                    .withPojoFields(IBeispielLink.class, Collections.singletonList(\"beispielBId\")," +
+                " BeispielB.class, Collections.singletonList(\"id\"))\n" +
+                "                    .withSourceField(SourceField.OBJECT_AND_SCALAR)\n" +
+                "                    .withLeftSideObjectName(\"beispielB\")\n" +
+                "                    .withTargetField(TargetField.MANY)\n" +
+                "                    .withRightSideObjectName(\"beispielAs\")\n" +
+                "                    .withMetaTags(AutomatonRelation.MANY_TO_MANY)\n" +
                 "            )\n" +
                 "\n" +
                 "\n" +

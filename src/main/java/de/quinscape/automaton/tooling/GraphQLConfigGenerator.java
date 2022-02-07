@@ -232,6 +232,7 @@ public class GraphQLConfigGenerator
             final List<String> sourceFields = relation.getSourceFields();
             final String targetPojo = relation.getTargetPojo();
             final List<String> targetFields = relation.getTargetFields();
+            final List<String> metaTags = relation.getMetaTags();
 
 
             if (sourcePojo == null)
@@ -292,6 +293,24 @@ public class GraphQLConfigGenerator
                     sb.append("        .withRightSideObjectName(").append(JSON.defaultJSON().quote(rightSideObjectName)).append(")\n");
                 }
             }
+
+            if (metaTags != null && metaTags.size() > 0)
+            {
+                sb.append("        .withMetaTags(");
+
+                for (Iterator<String> iterator = metaTags.iterator(); iterator.hasNext(); )
+                {
+                    String metaTag = iterator.next();
+                    sb.append(renderMetaTag(metaTag));
+                    if (iterator.hasNext())
+                    {
+                        sb.append(", ");
+                    }
+                }
+                sb.append(")\n");
+
+            }
+
             sb.append(")\n");
         }
 
@@ -341,6 +360,7 @@ public class GraphQLConfigGenerator
             final String leftSideObjectName = relation.getLeftSideObjectName();
             final TargetField targetField = relation.getTargetField();
             final String rightSideObjectName = relation.getRightSideObjectName();
+            final List<String> metaTags = relation.getMetaTags();
 
             if (fkField == null)
             {
@@ -352,14 +372,43 @@ public class GraphQLConfigGenerator
                 .append(", SourceField.").append(sourceField)
                 .append(", TargetField.").append(targetField);
 
+            final boolean haveMetaTags = metaTags != null && metaTags.size() > 0;
+
             if (leftSideObjectName != null || rightSideObjectName != null)
             {
                 sb.append(", ").append(JSON.defaultJSON().quote(leftSideObjectName)).append(", ").append(JSON.defaultJSON().quote(rightSideObjectName));
+            }
+            else
+            {
+                if (haveMetaTags)
+                {
+                    // if we have no names but a meta tag, we need to print the nulls for the names
+                    sb.append(", null, null");
+                }
+            }
+
+            if (haveMetaTags)
+            {
+                for (String metaTag : metaTags)
+                {
+                    sb.append(", ").append(renderMetaTag(metaTag));
+                }
             }
             sb.append(")\n");
         }
 
         return sb.toString();
+    }
+
+
+    private String renderMetaTag(String metaTag)
+    {
+        if (metaTag.equals("ManyToMany"))
+        {
+            return "AutomatonRelation.MANY_TO_MANY";
+        }
+
+        return JSON.defaultJSON().quote(metaTag);
     }
 
 

@@ -1,9 +1,7 @@
 package $BASE_PACKAGE.runtime.config;
 
-import de.quinscape.automaton.runtime.scalar.ConditionScalar;
-import de.quinscape.automaton.runtime.scalar.ConditionType;
-import de.quinscape.automaton.runtime.scalar.FieldExpressionScalar;
-import de.quinscape.automaton.runtime.scalar.FieldExpressionType;
+import de.quinscape.automaton.model.domain.AutomatonRelation;
+import de.quinscape.automaton.runtime.domain.builder.AutomatonDomain;
 
 import $BASE_PACKAGE.domain.Public;
 $POJO_IMPORTS
@@ -12,13 +10,7 @@ import de.quinscape.domainql.RelationBuilder;
 import de.quinscape.domainql.annotation.GraphQLLogic;
 import de.quinscape.domainql.config.SourceField;
 import de.quinscape.domainql.config.TargetField;
-import de.quinscape.domainql.generic.DomainObject;
-import de.quinscape.domainql.generic.DomainObjectScalar;
-import de.quinscape.domainql.generic.GenericScalar;
-import de.quinscape.domainql.generic.GenericScalarType;
-import de.quinscape.domainql.jsonb.JSONB;
-import de.quinscape.domainql.jsonb.JSONBScalar;
-import de.quinscape.domainql.scalar.BigDecimalScalar;
+import de.quinscape.domainql.meta.MetadataProvider;
 import graphql.GraphQL;
 import org.jooq.DSLContext;
 import org.slf4j.Logger;
@@ -66,19 +58,13 @@ public class GraphQLConfiguration
     public DomainQL domainQL() throws IOException
     {
         final Collection<Object> logicBeans = applicationContext.getBeansWithAnnotation(GraphQLLogic.class).values();
+        final Collection<MetadataProvider> metadataProviders = applicationContext.getBeansOfType(MetadataProvider.class).values();
 
-        final DomainQL domainQL = DomainQL.newDomainQL(dslContext)
+        final DomainQL domainQL = AutomatonDomain.newDomain(dslContext, metadataProviders)
 
             .logicBeans(logicBeans)
 
             .objectTypes(Public.PUBLIC)
-
-            .withAdditionalScalar(DomainObject.class, DomainObjectScalar.newDomainObjectScalar())
-            .withAdditionalScalar(JSONB.class, new JSONBScalar())
-            .withAdditionalScalar(ConditionScalar.class, ConditionType.newConditionType())
-            .withAdditionalScalar(FieldExpressionScalar.class, FieldExpressionType.newFieldExpressionType())
-            .withAdditionalScalar(GenericScalar.class, GenericScalarType.newGenericScalar())
-            .withAdditionalScalar(BigDecimal.class, new BigDecimalScalar())
 
             .withAdditionalInputTypes(
                 $INPUT_TYPES
